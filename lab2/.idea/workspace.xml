@@ -26,7 +26,7 @@
     <session id="-838847556">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.opened" value="2" />
@@ -287,6 +287,9 @@
     <history-entry file="IntListTest - 2020.01.18 at 21h 39m 34s.xml">
       <configuration name="IntListTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="IntListTest - 2020.01.18 at 21h 45m 04s.xml">
+      <configuration name="IntListTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -307,7 +310,7 @@
       <window_info id="Favorites" order="3" sideWeight="0.5014663" side_tool="true" weight="0.24966975" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32991204" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32991204" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.398827" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
