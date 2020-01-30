@@ -14,13 +14,12 @@ public class ArrayDeque<T> {
     //add an item at the first position
     public void addFirst(T item) {
         items[front] = item;
+        if (--front == -1) {
+            front = items.length - 1;
+        }
         size += 1;
         if (size == items.length) {
             resize(items.length * 2);
-        }
-        front -= 1;
-        if (front == -1) {
-            front = items.length - 1;
         }
     }
 
@@ -28,10 +27,10 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         items[rear] = item;
         size += 1;
+        rear = (rear + 1) % items.length;
         if (size == items.length) {
             resize(items.length * 2);
         }
-        rear = (rear + 1) % items.length;
     }
 
     public boolean isEmpty() {
@@ -78,9 +77,7 @@ public class ArrayDeque<T> {
 
     public T get(int index) {
         int temp = (front + 1) % items.length;
-        for (int i = 0; i < index; i++) {
-            temp = (temp + 1) % items.length;
-        }
+        temp = (temp + index) % items.length;
         return items[temp];
     }
 
