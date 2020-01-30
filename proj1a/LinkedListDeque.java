@@ -4,7 +4,7 @@ public class LinkedListDeque<T> {
         private TNode next;
         private TNode prev;
 
-        public TNode(T value, TNode prev, TNode next) {
+        private TNode(T value, TNode prev, TNode next) {
             item = value;
             this.next = next;
             this.prev = prev;
@@ -23,7 +23,9 @@ public class LinkedListDeque<T> {
 
     public void addFirst(T item) {
         size += 1;
-        sentinel.next = new TNode(item, sentinel, sentinel.next);
+        TNode temp = new TNode(item, sentinel, sentinel.next);
+        sentinel.next.prev = temp;
+        sentinel.next = temp;
         if (this.size() == 1) {
             last = sentinel.next;
         }
