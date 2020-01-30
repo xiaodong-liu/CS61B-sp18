@@ -51,6 +51,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (this.isEmpty()) {
+            return null;
+        }
         size -= 1;
         front = (front + 1) % items.length;
         T temp = items[front];
@@ -62,6 +65,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (this.isEmpty()) {
+            return null;
+        }
         size -= 1;
         rear = rear - 1;
         if (rear == -1) {
