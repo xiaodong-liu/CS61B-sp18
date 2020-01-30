@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
     private class TNode {
-        public T item;
-        public TNode next;
-        public TNode prev;
+        private T item;
+        private TNode next;
+        private TNode prev;
 
         public TNode(T value, TNode prev, TNode next) {
             item = value;
@@ -24,6 +24,9 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         size += 1;
         sentinel.next = new TNode(item, sentinel, sentinel.next);
+        if (this.size() == 1) {
+            last = sentinel.next;
+        }
     }
 
     public void addLast(T item) {
@@ -90,14 +93,16 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        if (size < index + 1)
+        if (size < index + 1) {
             return null;
+        }
         return getRecursive(sentinel.next, index);
     }
 
     private T getRecursive(TNode p, int index) {
-        if (index == 0)
+        if (index == 0) {
             return p.item;
+        }
         return getRecursive(p.next, index - 1);
     }
 }
