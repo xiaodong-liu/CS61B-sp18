@@ -7,7 +7,7 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         items = (T[]) new Object[8];
         rear = 0;
-        front = 7;
+        front = items.length - 1;
         size = 0;
     }
 
@@ -15,19 +15,22 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         items[front] = item;
         size += 1;
-        if (size == items.length)
+        if (size == items.length) {
             resize(items.length * 2);
+        }
         front -= 1;
-        if (front == -1)
+        if (front == -1) {
             front = items.length - 1;
+        }
     }
 
     //add an item at the last position
     public void addLast(T item) {
         items[rear] = item;
         size += 1;
-        if (size == items.length)
+        if (size == items.length) {
             resize(items.length * 2);
+        }
         rear = (rear + 1) % items.length;
     }
 
@@ -40,8 +43,8 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        int temp = front;
-        while (temp != rear) {
+        int temp = (front + 1) % items.length;
+        for (int i = 0; i < size; i++) {
             System.out.println(items[temp]);
             temp = (temp + 1) % items.length;
         }
@@ -49,25 +52,26 @@ public class ArrayDeque<T> {
 
     public T removeFirst() {
         size -= 1;
-        front = front + 1;
-        if (front == items.length)
-            front = 0;
+        front = (front + 1) % items.length;
         T temp = items[front];
         items[front] = null;
-        if (size < items.length / 4)
+        if (size < items.length / 4) {
             resize(items.length / 2);
+        }
         return temp;
     }
 
     public T removeLast() {
         size -= 1;
         rear = rear - 1;
-        if (rear == -1)
+        if (rear == -1) {
             rear = items.length - 1;
+        }
         T temp = items[rear];
         items[rear] = null;
-        if (size < items.length / 4)
+        if (size < items.length / 4) {
             resize(items.length / 2);
+        }
         return temp;
     }
 
@@ -87,6 +91,8 @@ public class ArrayDeque<T> {
             temp = (temp + 1) % items.length;
         }
         items = a;
+        front = items.length - 1;
+        rear = size;
     }
 
 
