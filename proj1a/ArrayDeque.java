@@ -45,7 +45,8 @@ public class ArrayDeque<T> {
     public void printDeque() {
         int temp = (front + 1) % items.length;
         for (int i = 0; i < size; i++) {
-            System.out.println(items[temp]);
+            System.out.print(items[temp]);
+            System.out.print(" ");
             temp = (temp + 1) % items.length;
         }
     }
@@ -76,16 +77,19 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        int temp = front;
-        for (int i = 0; i <= index; i++) {
+        int temp = (front + 1) % items.length;
+        for (int i = 0; i < index; i++) {
             temp = (temp + 1) % items.length;
         }
         return items[temp];
     }
 
     private void resize(int capacity) {
+        if (capacity < 8) {
+            return;
+        }
         T[] a = (T[]) new Object[capacity];
-        int temp = front;
+        int temp = (front + 1) % items.length;
         for (int i = 0; i < size; i++) {
             a[i] = items[temp];
             temp = (temp + 1) % items.length;
