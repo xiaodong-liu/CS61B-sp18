@@ -9,10 +9,6 @@ public class OffByN implements CharacterComparator {
     public boolean equalChars(char x, char y) {
         int off = x - y;
 
-        if (off == N || -off == N) {
-            return true;
-        } else {
-            return false;
-        }
+        return off == N || -off == N;
     }
 }
