@@ -7,12 +7,14 @@ public class PercolationStats {
     private Percolation per;
     private Random random;
     private int numbers;
+    private int N;
 
     //perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException("Either N or T is illegal");
         }
+        this.N = N;
         numbers = T;
         random = new Random();
         count = new int[T];
@@ -40,7 +42,7 @@ public class PercolationStats {
             sum += count[i];
         }
 
-        return sum / numbers;
+        return sum / numbers / (N * N);
 
     }
 
@@ -70,12 +72,5 @@ public class PercolationStats {
         double sigma = stddev();
 
         return miu + 1.96 * sigma / Math.sqrt(numbers);
-    }
-
-    public static void main(String[] args) {
-        PercolationFactory pf = new PercolationFactory();
-        PercolationStats experiment = new PercolationStats(10, 50, pf);
-        System.out.println(experiment.mean() + " " + experiment.stddev() + " "
-                + experiment.confidenceLow() + " " + experiment.confidenceHigh());
     }
 }

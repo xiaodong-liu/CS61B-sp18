@@ -42,9 +42,6 @@ public class Percolation {
             if (row == 0) {
                 DS.union(col, up);
             }
-            if (row == N - 1) {
-                DS.union(N * row + col, bottom);
-            }
 
         }
     }
@@ -86,7 +83,12 @@ public class Percolation {
 
     //does the system percolate
     public boolean percolates() {
-        return DS.connected(bottom, up);
+        for (int i = 0; i < N; i++) {
+            if (DS.connected(N * (N - 1) + i, up)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void isLegal(int row, int col) {
