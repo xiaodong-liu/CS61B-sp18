@@ -37,7 +37,7 @@ public class Percolation {
         if (!isOpen(row, col)) {
             count += 1;
             site[row][col] = true;
-            connect_neighbours(row, col);
+            connectNeighbours(row, col);
 
             if (row == 0) {
                 DS.union(col, up);
@@ -49,7 +49,7 @@ public class Percolation {
         }
     }
 
-    private void connect_neighbours(int row, int col) {
+    private void connectNeighbours(int row, int col) {
         int currentIndex = N * row + col;
         if ((row - 1 >= 0) && isOpen(row - 1, col)) {
             DS.union(currentIndex, N * (row - 1) + col);
@@ -98,4 +98,8 @@ public class Percolation {
         }
     }
 
+    public static void main(String[] args) {
+        Percolation per = new Percolation(20);
+
+    }
 }
