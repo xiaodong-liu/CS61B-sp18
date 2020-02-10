@@ -42,12 +42,15 @@ public class Percolation {
             if (row == 0) {
                 DS.union(col, up);
             }
-            if (row == N - 1) {
-                if (DS.connected(row * N + col, up)) {
-                    DS.union(row * N + col, bottom);
-                }
-            }
+            connectBottom();
+        }
+    }
 
+    private void connectBottom() {
+        for (int i = 0; i < N; i++) {
+            if (DS.connected(N * (N - 1) + i, up)) {
+                DS.union(N * (N - 1) + i, bottom);
+            }
         }
     }
 
