@@ -3,7 +3,7 @@ package hw2;
 import java.util.Random;
 
 public class PercolationStats {
-    private int[] count;
+    private double[] count;
     private Percolation per;
     private Random random;
     private int numbers;
@@ -17,7 +17,7 @@ public class PercolationStats {
         this.N = N;
         numbers = T;
         random = new Random();
-        count = new int[T];
+        count = new double[T];
         int x = random.nextInt(N);
         int y = random.nextInt(N);
 
@@ -31,6 +31,7 @@ public class PercolationStats {
                 per.open(x, y);
                 count[i] += 1;
             }
+            count[i] /= N * N;
         }
 
     }
@@ -42,7 +43,7 @@ public class PercolationStats {
             sum += count[i];
         }
 
-        return sum / numbers / (N * N);
+        return sum / numbers;
 
     }
 
