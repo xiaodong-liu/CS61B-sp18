@@ -8,7 +8,7 @@ public class Percolation {
     private int N;
     private int count;
     private WeightedQuickUnionUF DS;
-    private WeightedQuickUnionUF DSNoBottom;
+    private WeightedQuickUnionUF _DSNoBottom;
     private int up;
     private int bottom;
 
@@ -19,7 +19,7 @@ public class Percolation {
             throw new IllegalArgumentException("Error argument");
         }
         DS = new WeightedQuickUnionUF(N * N + 2);
-        DSNoBottom = new WeightedQuickUnionUF(N * N + 2);
+        _DSNoBottom = new WeightedQuickUnionUF(N * N + 2);
         up = N * N;
         bottom = N * N + 1;
         this.N = N;
@@ -38,7 +38,7 @@ public class Percolation {
 
             if (row == 0) {
                 DS.union(col, up);
-                DSNoBottom.union(col, up);
+                _DSNoBottom.union(col, up);
             }
             if (row == N - 1) {
                 DS.union(row * N + col, bottom);
@@ -51,19 +51,19 @@ public class Percolation {
         int currentIndex = N * row + col;
         if ((row - 1 >= 0) && isOpen(row - 1, col)) {
             DS.union(currentIndex, N * (row - 1) + col);
-            DSNoBottom.union(currentIndex, N * (row - 1) + col);
+            _DSNoBottom.union(currentIndex, N * (row - 1) + col);
         }
         if ((row + 1 < N) && isOpen(row + 1, col)) {
             DS.union(currentIndex, N * (row + 1) + col);
-            DSNoBottom.union(currentIndex, N * (row + 1) + col);
+            _DSNoBottom.union(currentIndex, N * (row + 1) + col);
         }
         if ((col - 1 >= 0) && isOpen(row, col - 1)) {
             DS.union(currentIndex, N * row + col - 1);
-            DSNoBottom.union(currentIndex, N * row + col - 1);
+            _DSNoBottom.union(currentIndex, N * row + col - 1);
         }
         if ((col + 1 < N) && isOpen(row, col + 1)) {
             DS.union(currentIndex, N * row + col + 1);
-            DSNoBottom.union(currentIndex, N * row + col + 1);
+            _DSNoBottom.union(currentIndex, N * row + col + 1);
         }
     }
 
@@ -78,7 +78,7 @@ public class Percolation {
     public boolean isFull(int row, int col) {
         isLegal(row, col);
 
-        return DSNoBottom.connected(N * row + col, up);
+        return _DSNoBottom.connected(N * row + col, up);
     }
 
     //number of open site
