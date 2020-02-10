@@ -1,5 +1,81 @@
 package hw2;
 
-public class PercolationStats {
+import java.util.Random;
 
+public class PercolationStats {
+    private int[] count;
+    private Percolation per;
+    private Random random;
+    private int experiment_numbers;
+
+    //perform T independent experiments on an N-by-N grid
+    public PercolationStats(int N, int T, PercolationFactory pf) {
+        if (N <= 0 || T <= 0) {
+            throw new IllegalArgumentException("Either N or T is illegal");
+        }
+        experiment_numbers = T;
+        random = new Random();
+        count = new int[T];
+        int x = random.nextInt(N);
+        int y = random.nextInt(N);
+
+        for (int i = 0; i < T; i++) {
+            per = pf.make(N);
+            while (!per.percolates()) {
+                while (per.isOpen(x, y)) {
+                    x = random.nextInt(N);
+                    y = random.nextInt(N);
+                }
+                per.open(x, y);
+                count[i] += 1;
+            }
+        }
+
+    }
+
+    //sample mean of percolation threshold
+    public double mean() {
+        double sum = 0;
+        for (int i = 0; i < experiment_numbers; i++) {
+            sum += count[i];
+        }
+
+        return sum / experiment_numbers;
+
+    }
+
+    //sample standard deviation of percolation threshold
+    public double seddev() {
+        double miu = mean();
+        double sigma = 0;
+        for (int i = 0; i < experiment_numbers; i++) {
+            sigma += (count[i] - miu) * (count[i] - miu);
+        }
+
+        return Math.sqrt(sigma / (experiment_numbers - 1));
+
+    }
+
+    //low endpoint of 95% confidence interval
+    public double confidenceLow() {
+        double miu = mean();
+        double sigma = seddev();
+
+        return miu - 1.96 * sigma / Math.sqrt(experiment_numbers);
+    }
+
+    //high endpoint of 95% confidence interval
+    public double confidenceHigh() {
+        double miu = mean();
+        double sigma = seddev();
+
+        return miu + 1.96 * sigma / Math.sqrt(experiment_numbers);
+    }
+
+    public static void main(String[] args) {
+        PercolationFactory pf = new PercolationFactory();
+        PercolationStats experiment = new PercolationStats(10, 50, pf);
+        System.out.println(experiment.mean() + " " + experiment.seddev() + " "
+                + experiment.confidenceLow() + " " + experiment.confidenceHigh());
+    }
 }
